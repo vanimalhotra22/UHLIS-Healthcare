@@ -58,14 +58,14 @@ class ChatRequest(BaseModel):
 @app.post("/chat/clinical")
 def chat_clinical(req: ChatRequest, db: Session = Depends(get_db)):
     if not AGENT_AVAILABLE:
-        return {"reply": "AI Agent offline — langchain-ollama not installed.", "action": None}
+        return {"reply": "AI Agent offline - langchain-ollama not installed.", "action": None}
     agent = GenAIMedicalAgent(db)
     return agent.process_message(req.patient_id, req.message, mode="clinical")
 
 @app.post("/chat/copilot")
 def chat_copilot(req: ChatRequest, db: Session = Depends(get_db)):
     if not AGENT_AVAILABLE:
-        return {"reply": "⚠️ AI Copilot is offline. Make sure Ollama is running and langchain-ollama is installed.", "action": None}
+        return {"reply": "[Warning] AI Copilot is offline. Make sure Ollama is running and langchain-ollama is installed.", "action": None}
     agent = GenAIMedicalAgent(db)
     return agent.process_message(req.patient_id, req.message, mode="copilot")
 
@@ -73,7 +73,7 @@ def chat_copilot(req: ChatRequest, db: Session = Depends(get_db)):
 @app.post("/chat/ai")
 def chat_ai(req: ChatRequest, db: Session = Depends(get_db)):
     if not AGENT_AVAILABLE:
-        return {"reply": "AI Agent offline — langchain-ollama not installed.", "action": None}
+        return {"reply": "AI Agent offline - langchain-ollama not installed.", "action": None}
     agent = GenAIMedicalAgent(db)
     return agent.process_message(req.patient_id, req.message, mode="copilot")
 
@@ -759,7 +759,7 @@ def update_ambulance_status(booking_id: int, status: str, db: Session = Depends(
 # =====================================================
 
 # =====================================================
-# --- 15. NEARBY FACILITIES — Real Overpass API Proxy ---
+# --- 15. NEARBY FACILITIES - Real Overpass API Proxy ---
 # =====================================================
 import urllib.request
 
