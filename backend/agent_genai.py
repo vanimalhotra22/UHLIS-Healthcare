@@ -16,7 +16,7 @@ load_dotenv()
 class GenAIMedicalAgent:
     def __init__(self, db: Session):
         self.db = db
-        print("🧠 AGENT LOADED: Hybrid Logic Ready (Gemini Powered)") # DEBUG PRINT
+        print("AGENT LOADED: Hybrid Logic Ready (Gemini Powered)") # DEBUG PRINT
         
         # LangChain expects GOOGLE_API_KEY, but we have GEMINI_API_KEY in .env
         api_key = os.environ.get("GEMINI_API_KEY") or os.environ.get("GOOGLE_API_KEY")
@@ -28,7 +28,7 @@ class GenAIMedicalAgent:
         )
 
     def process_message(self, patient_id: int, message: str, mode: str = "clinical"):
-        print(f"📩 RECEIVED: {message}") # DEBUG PRINT
+        print(f"RECEIVED: {message}") # DEBUG PRINT
         clean_msg = message.lower()
 
         # --- 1. TRAP: PRESCRIPTIONS (The "Force" Logic) ---
@@ -44,7 +44,7 @@ class GenAIMedicalAgent:
                 # A. Find or Create Product (Auto-Stocking)
                 product = self.db.query(Product).filter(Product.name.ilike(f"%{raw_name}%")).first()
                 if not product:
-                    print(f"⚠️ Drug '{raw_name}' missing. Auto-creating...")
+                    print(f"WARNING: Drug '{raw_name}' missing. Auto-creating...")
                     product = Product(name=raw_name.title(), price=100.0, category="Prescription", stock=50, is_prescribed=True)
                     self.db.add(product)
                     self.db.commit()
@@ -56,7 +56,7 @@ class GenAIMedicalAgent:
                 # C. Add to Schedule (My Meds)
                 existing = self.db.query(Prescription).filter_by(user_id=patient_id, drug_name=product.name).first()
                 if not existing:
-                    print(f"💊 Prescribing {product.name}...")
+                    print(f"Prescribing {product.name}...")
                     self.db.add(Prescription(
                         user_id=patient_id,
                         drug_name=product.name,
@@ -100,7 +100,7 @@ class GenAIMedicalAgent:
         self.db.commit()
 
     def analyze_image(self, image_bytes: bytes, organ: str, mime_type: str = "image/jpeg"):
-        print(f"👁️ AGENT: Analyzing image for {organ} via Gemini Vision...")
+        print(f"AGENT: Analyzing image for {organ} via Gemini Vision...")
         try:
             encoded_image = base64.b64encode(image_bytes).decode('utf-8')
             
@@ -139,7 +139,7 @@ class GenAIMedicalAgent:
             return json.loads(text)
             
         except Exception as e:
-            print(f"❌ Gemini Vision Error: {e}")
+            print(f"Gemini Vision Error: {e}")
             return {
                 "diagnosis": "Analysis Failed",
                 "confidence": "0.0%",
