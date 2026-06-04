@@ -13,11 +13,13 @@ from PIL import Image
 
 # Import your custom modules
 from database import SessionLocal, Product, User, CartItem, BioResource, Transaction, MedicalKnowledge, Prescription, MedicalRecord, Appointment, MedicationLog, FitnessLog, ChatMessage, DoctorProfile, AmbulanceBooking
+AGENT_ERROR = None
 try:
     from agent_genai import GenAIMedicalAgent
     AGENT_AVAILABLE = True
-except ImportError as e:
+except Exception as e:
     AGENT_AVAILABLE = False
+    AGENT_ERROR = str(e)
     print(f"[WARNING] AI Agent not available: {e}")
 
 app = FastAPI()
@@ -58,14 +60,14 @@ class ChatRequest(BaseModel):
 @app.post("/chat/clinical")
 def chat_clinical(req: ChatRequest, db: Session = Depends(get_db)):
     if not AGENT_AVAILABLE:
-        return {"reply": "AI Agent offline - langchain-ollama not installed.", "action": None}
+        return {"reply": f"[Warning] AI Copilot is offline. Reason: {AGENT_ERROR}", "action": None}
     agent = GenAIMedicalAgent(db)
     return agent.process_message(req.patient_id, req.message, mode="clinical")
 
 @app.post("/chat/copilot")
 def chat_copilot(req: ChatRequest, db: Session = Depends(get_db)):
     if not AGENT_AVAILABLE:
-        return {"reply": "[Warning] AI Copilot is offline. Make sure Ollama is running and langchain-ollama is installed.", "action": None}
+        return {"reply": f"[Warning] AI Copilot is offline. Reason: {AGENT_ERROR}", "action": None}
     agent = GenAIMedicalAgent(db)
     return agent.process_message(req.patient_id, req.message, mode="copilot")
 
@@ -73,7 +75,7 @@ def chat_copilot(req: ChatRequest, db: Session = Depends(get_db)):
 @app.post("/chat/ai")
 def chat_ai(req: ChatRequest, db: Session = Depends(get_db)):
     if not AGENT_AVAILABLE:
-        return {"reply": "AI Agent offline - langchain-ollama not installed.", "action": None}
+        return {"reply": f"[Warning] AI Copilot is offline. Reason: {AGENT_ERROR}", "action": None}
     agent = GenAIMedicalAgent(db)
     return agent.process_message(req.patient_id, req.message, mode="copilot")
 
