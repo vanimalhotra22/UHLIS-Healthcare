@@ -1,0 +1,58 @@
+{
+  "models": {
+    "skin": {
+      "path": "models/skin_net.pth",
+      "classes": ["Actinic Keratoses", "Basal Cell Carcinoma", "Benign Keratosis", "Dermatofibroma", "Melanocytic Nevi", "Melanoma", "Vascular Lesions"],
+      "type": "Dermatoscope",
+      "channels": 3
+    },
+    "lungs": {
+      "path": "models/lungs_net.pth",
+      "classes": ["Normal", "Pneumonia"],
+      "type": "X-Ray",
+      "channels": 1
+    },
+    "abdomen": {
+      "path": "models/abdomen_net.pth",
+      "classes": ["Bladder", "Femur-L", "Femur-R", "Heart", "Kidney-L", "Kidney-R", "Liver", "Lung-L", "Lung-R", "Pancreas", "Spleen"],
+      "type": "CT Scan",
+      "channels": 1
+    },
+    "brain": {
+      "path": "models/brain_net.pth",
+      "classes": ["Glioma", "Meningioma", "No Tumor", "Pituitary"],
+      "type": "MRI",
+      "channels": 3
+    },
+    "bones": {
+      "path": "models/bone_net.pth",
+      "classes": ["Fractured", "Not Fractured"],
+      "type": "X-Ray",
+      "channels": 3
+    },
+    "eyes": {
+      "path": "models/retina_net.pth",
+      "classes": ["No DR", "Mild", "Moderate", "Severe", "Proliferative DR"],
+      "type": "Retina Fundus",
+      "channels": 3
+    },
+    "blood": {
+      "path": "models/blood_net.pth",
+      "classes": ["Basophil", "Eosinophil", "Erythroblast", "Granulocyte", "Lymphocyte", "Monocyte", "Neutrophil", "Platelet"],
+      "type": "Microscope",
+      "channels": 3
+    },
+    "breast": {
+      "path": "models/breast_net.pth",
+      "classes": ["Malignant", "Normal/Benign"],
+      "type": "Ultrasound",
+      "channels": 1
+    },
+    "pathology": {
+      "path": "models/pathology_net.pth",
+      "classes": ["Adipose", "Background", "Debris", "Lymphocytes", "Mucus", "Muscle", "Normal Colon", "Polyps", "Tumor"],
+      "type": "Histology",
+      "channels": 3
+    }
+  }
+}

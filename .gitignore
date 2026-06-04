@@ -1,0 +1,19 @@
+# Node dependencies
+frontend/node_modules/
+frontend/build/
+
+# Python virtual environment
+backend/venv/
+backend/.venv/
+backend/__pycache__/
+backend/*.pyc
+
+# Environment secrets (DO NOT COMMIT)
+backend/.env
+.env
+
+# Database & Logs & Datasets
+backend/*.log
+backend/uploads/*
+!backend/uploads/.gitkeep
+backend/data/
