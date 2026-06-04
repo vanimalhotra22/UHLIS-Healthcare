@@ -68,7 +68,7 @@ class GenAIMedicalAgent:
                     self.db.commit()
 
                 return {
-                    "reply": f"✅ Prescribed {product.name}. Added to 'My Meds' and Cart.",
+                    "reply": f"[Success] Prescribed {product.name}. Added to 'My Meds' and Cart.",
                     "action": "redirect_store"
                 }
 
@@ -81,7 +81,7 @@ class GenAIMedicalAgent:
             ))
             self.db.commit()
             return {
-                "reply": f"✅ Scheduled {test_name}.",
+                "reply": f"[Success] Scheduled {test_name}.",
                 "action": "redirect_records"
             }
 
