@@ -6,3 +6,4 @@ python-multipart
 pillow
 langchain
 langchain-google-genai
+python-dotenv
