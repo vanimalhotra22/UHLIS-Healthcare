@@ -111,4 +111,4 @@ Ensure you have **Python 3.10+** and **Node.js 18+** installed on your system.
    * **Root Directory:** `frontend`
 4. Add the following **Environment Variable**:
    * `REACT_APP_API_URL` = `[Your Live Render URL]` (e.g., `https://your-app.onrender.com`)
-5. Click **Deploy**.
+5. Click **Deploy**
